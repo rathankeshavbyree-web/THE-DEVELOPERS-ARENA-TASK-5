@@ -22,7 +22,7 @@ portfolio/
 
 1. **Add your profile photo** — place a photo named `profile.jpg` inside the `images/` folder.
 2. **Open in browser** — open `index.html` directly in any modern browser. No build step required.
-3. **Deploy** — upload the entire `portfolio/` folder to any static host (GitHub Pages, Netlify, Vercel, etc.).
+3. **Deploy** — https://the-developers-arena-task-5.vercel.app/
 
 ## Features
 
