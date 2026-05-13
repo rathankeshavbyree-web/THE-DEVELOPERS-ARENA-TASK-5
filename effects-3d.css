@@ -1,0 +1,491 @@
+/* ============================================================
+   effects-3d.css — RATHAN KESHAV BYREE Portfolio
+   Advanced 3D, Parallax & Premium Hover Effects
+   Chunk 1: Hero Visual Wrapper Tilt (card + badges unified)
+   ============================================================ */
+
+/* ── Hero right: perspective lives here, NOT on the card ── */
+.hero__right {
+  perspective: 1100px;
+  perspective-origin: 50% 50%;
+  overflow: visible;
+}
+
+/* ── Hero visual: the single element that tilts ── */
+.hero__visual {
+  position: relative;
+  transform-style: preserve-3d;
+  transform: rotateX(0deg) rotateY(0deg) scale(1);
+  will-change: transform;
+  backface-visibility: hidden;
+  /* Smooth reset when mouse leaves */
+  transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1),
+              box-shadow 0.4s ease;
+  overflow: visible;
+}
+
+/* While actively tracking — switch to fast linear so it follows cursor */
+.hero__visual.is-tracking {
+  transition: none;
+}
+
+/* Glow on the wrapper intensifies during interaction */
+.hero__visual.is-tracking .editor,
+.hero__visual:hover .editor {
+  border-color: rgba(255, 45, 85, 0.38);
+  box-shadow:
+    var(--shadow-lg),
+    0 0 55px rgba(255, 45, 85, 0.20),
+    0 0 110px rgba(255, 45, 85, 0.09),
+    inset 0 1px 0 rgba(255, 255, 255, 0.10);
+}
+
+/* ── Editor card: no independent tilt — inherits from wrapper ── */
+.editor {
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+  will-change: transform;
+  /* Only transition non-transform properties */
+  transition:
+    box-shadow   0.35s ease,
+    border-color 0.35s ease;
+}
+
+/* ── Parallax depth layers inside the card ── */
+.editor__header {
+  transform: translateZ(8px);
+  will-change: transform;
+  backface-visibility: hidden;
+}
+
+.editor__body {
+  transform: translateZ(16px);
+  will-change: transform;
+  backface-visibility: hidden;
+}
+
+/* ── Gloss sweep overlay ── */
+.editor__gloss {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  z-index: 10;
+  overflow: hidden;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.editor__gloss::before {
+  content: '';
+  position: absolute;
+  top: -60%;
+  left: var(--gx, -80%);
+  width: 55%;
+  height: 220%;
+  background: linear-gradient(
+    105deg,
+    transparent 20%,
+    rgba(255, 255, 255, 0.05) 45%,
+    rgba(255, 255, 255, 0.09) 50%,
+    rgba(255, 255, 255, 0.05) 55%,
+    transparent 80%
+  );
+  transform: skewX(-15deg);
+  pointer-events: none;
+}
+
+.hero__visual.is-tracking .editor__gloss,
+.hero__visual:hover .editor__gloss {
+  opacity: 1;
+}
+
+/* ── Badges: outer span = position only, no animation ── */
+/* Float animation lives on .badge__inner so it never
+   conflicts with the wrapper's 3D transform              */
+.badge {
+  /* Position + shape only — no transform, no animation */
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+  will-change: transform;
+  /* Remove any animation from the outer element */
+  animation: none !important;
+}
+
+/* Inner span carries the float + hover transforms.
+   Shape, size, and visual styles are defined in main.css —
+   only add 3D/animation properties here.                    */
+.badge__inner {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  /* DO NOT set width/height/padding here — main.css owns those */
+  will-change: transform;
+  backface-visibility: hidden;
+  transition:
+    transform  380ms cubic-bezier(0.34, 1.56, 0.64, 1),
+    box-shadow 300ms ease,
+    filter     300ms ease;
+}
+
+/* Assign float animations to inner spans */
+.hero__badge--html .badge__inner { animation: floatBadge1 4.4s ease-in-out infinite; }
+.hero__badge--git  .badge__inner { animation: floatBadge3 4.2s ease-in-out 0.4s infinite; }
+.hero__badge--css  .badge__inner { animation: floatBadge2 5.2s ease-in-out 0.8s infinite; }
+.hero__badge--react .badge__inner { animation: floatBadge1 6s ease-in-out 0.2s infinite reverse; }
+.hero__badge--js   .badge__inner { animation: floatBadge2 5s ease-in-out 1s infinite; }
+
+/* Hover on the outer badge lifts the inner span */
+.badge:hover .badge__inner {
+  transform: scale(1.08) translateY(-7px) rotateX(6deg) rotateY(-4deg);
+  filter: brightness(1.12) saturate(1.15);
+}
+
+/* JS badge: inner span also needs to respect the outer translateY(-50%) */
+.hero__badge--js:hover .badge__inner {
+  transform: scale(1.08) translateY(-7px) rotateX(6deg) rotateY(-4deg);
+}
+
+/* ============================================================
+   Chunk 2: About Image 3D Tilt + Social Icons + Badges
+   ============================================================ */
+
+/* ── About image wrap: perspective ── */
+.about__image-wrap {
+  perspective: 900px;
+  perspective-origin: center center;
+}
+
+/* ── Image frame: 3D transform base ── */
+.about__image-frame {
+  transform-style: preserve-3d;
+  transform: rotateX(0deg) rotateY(0deg) translateZ(0);
+  transition:
+    transform   0.12s ease-out,
+    box-shadow  0.35s ease;
+  will-change: transform;
+}
+
+.about__image-frame.is-tilting {
+  transition: transform 0.05s linear;
+}
+
+/* Gloss overlay on image frame */
+.about__image-frame::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.07) 0%,
+    transparent 50%,
+    rgba(255, 45, 85, 0.04) 100%
+  );
+  pointer-events: none;
+  z-index: 3;
+  opacity: 0;
+  transition: opacity 0.35s ease;
+}
+
+.about__image-frame:hover::after,
+.about__image-frame.is-tilting::after {
+  opacity: 1;
+}
+
+/* Halo intensifies on tilt */
+.about__image-wrap.is-tilting .about__halo,
+.about__image-wrap:hover .about__halo {
+  opacity: 1;
+  transform: scale(1.12);
+  filter: blur(14px);
+}
+
+/* Ring brightens on tilt */
+.about__image-wrap.is-tilting .about__ring,
+.about__image-wrap:hover .about__ring {
+  border-color: rgba(255, 45, 85, 0.35);
+  box-shadow:
+    0 0 20px rgba(255, 45, 85, 0.2),
+    inset 0 0 20px rgba(255, 45, 85, 0.06);
+}
+
+/* ── Social icon buttons: 3D lift + light sweep ── */
+.hero__social-btn {
+  transform-style: preserve-3d;
+  perspective: 400px;
+}
+
+/* Light sweep pseudo-element */
+.hero__social-btn::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 60%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.18),
+    transparent
+  );
+  transform: skewX(-20deg);
+  transition: left 0.45s ease;
+  border-radius: inherit;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.hero__social-btn:hover::after {
+  left: 160%;
+}
+
+/* 3D lift on hover — override previous transform */
+.hero__social-btn:hover {
+  transform: scale(1.12) translateY(-6px) rotateX(8deg) rotateY(4deg) !important;
+}
+
+/* ── Floating badges: hover handled via .badge__inner in chunk 1 ── */
+/* Outer .badge element must NOT have its own transform animation
+   to avoid conflicts with the wrapper tilt                        */
+
+/* ============================================================
+   Chunk 3: Nav Links, Buttons, Form Elements, Reduced Motion
+   ============================================================ */
+
+/* ── Navigation links: glow underline + letter spacing ── */
+.navbar__link {
+  transition:
+    color         var(--transition-base),
+    letter-spacing var(--transition-base);
+}
+
+.navbar__link:hover {
+  letter-spacing: 0.08em;
+}
+
+/* Underline glow trail */
+.navbar__link::after {
+  box-shadow:
+    0 0 8px var(--red-primary),
+    0 0 16px var(--red-glow-soft);
+  transition:
+    width     var(--transition-base),
+    box-shadow var(--transition-base);
+}
+
+.navbar__link:hover::after {
+  box-shadow:
+    0 0 12px var(--red-primary),
+    0 0 24px var(--red-glow),
+    0 0 40px var(--red-glow-soft);
+}
+
+/* Red light trail dot that slides under the link */
+.navbar__link::before {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--red-primary);
+  box-shadow: 0 0 8px var(--red-primary), 0 0 16px var(--red-glow);
+  opacity: 0;
+  transform: translateX(-4px);
+  transition:
+    opacity   var(--transition-base),
+    transform var(--transition-base);
+}
+
+.navbar__link:hover::before {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* ── Primary button: 3D elevation + gloss sweep ── */
+.btn--primary {
+  transform-style: preserve-3d;
+  perspective: 500px;
+  transition:
+    background    var(--transition-base),
+    color         var(--transition-base),
+    border-color  var(--transition-base),
+    box-shadow    var(--transition-base),
+    transform     var(--transition-bounce);
+}
+
+.btn--primary:hover {
+  transform: translateY(-3px) rotateX(4deg);
+  box-shadow:
+    0 8px 32px var(--red-glow),
+    0 2px 0 rgba(255, 255, 255, 0.1) inset,
+    0 -2px 0 rgba(0, 0, 0, 0.2) inset;
+}
+
+/* Gloss sweep on button */
+.btn--primary::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 55%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.14),
+    transparent
+  );
+  transform: skewX(-20deg);
+  transition: left 0.5s ease;
+  pointer-events: none;
+  border-radius: inherit;
+}
+
+.btn--primary:hover::after {
+  left: 160%;
+}
+
+/* ── Outline button: 3D elevation ── */
+.btn--outline:hover {
+  transform: translateY(-3px) rotateX(4deg);
+  box-shadow:
+    var(--shadow-red-sm),
+    0 6px 20px rgba(255, 45, 85, 0.15);
+}
+
+/* ── Form inputs: 3D focus depth ── */
+.form__input,
+.form__textarea {
+  transition:
+    border-color  var(--transition-base),
+    box-shadow    var(--transition-base),
+    background    var(--transition-base),
+    transform     var(--transition-base);
+}
+
+.form__input:focus,
+.form__textarea:focus {
+  transform: translateY(-1px);
+  box-shadow:
+    0 0 0 3px rgba(255, 45, 85, 0.12),
+    0 4px 16px rgba(255, 45, 85, 0.08),
+    0 0 0 1px var(--red-primary) inset;
+}
+
+/* ── Skill cards: 3D lift ── */
+.skill-card {
+  transition:
+    border-color  var(--transition-base),
+    box-shadow    var(--transition-base),
+    transform     var(--transition-bounce);
+}
+
+.skill-card:hover {
+  transform: translateY(-6px) rotateX(2deg);
+  box-shadow:
+    0 12px 40px rgba(255, 45, 85, 0.12),
+    0 0 0 1px rgba(255, 45, 85, 0.15);
+}
+
+/* ── Responsive: reduce tilt on tablet ── */
+@media (max-width: 1024px) {
+  .hero__visual {
+    --tilt-max-y: 6deg;
+    --tilt-max-x: 5deg;
+  }
+  .about__image-frame {
+    --tilt-max: 6deg;
+  }
+}
+
+/* ── Responsive: disable 3D on mobile ── */
+@media (max-width: 767px) {
+  /* Kill all 3D on the hero visual wrapper */
+  .hero__visual {
+    transform: none !important;
+    transition: none !important;
+    perspective: none !important;
+    transform-style: flat !important;
+    overflow: hidden;
+  }
+
+  .hero__right {
+    perspective: none !important;
+    overflow: hidden;
+  }
+
+  /* Kill translateZ on parallax layers — causes overflow on mobile */
+  .editor__header,
+  .editor__body {
+    transform: none !important;
+    transition: none !important;
+  }
+
+  /* Kill editor 3D */
+  .editor {
+    transform: none !important;
+    transform-style: flat !important;
+  }
+
+  /* Kill about image 3D */
+  .about__image-frame {
+    transform: none !important;
+    transition: box-shadow 0.3s ease !important;
+    transform-style: flat !important;
+  }
+
+  /* Simplify hover effects for touch */
+  .hero__social-btn:hover {
+    transform: scale(1.05) !important;
+  }
+
+  .navbar__link:hover {
+    letter-spacing: 0.04em;
+  }
+
+  /* Disable nav link dot trail on mobile */
+  .navbar__link::before {
+    display: none;
+  }
+}
+
+/* ── Reduced motion: strip all 3D transforms ── */
+@media (prefers-reduced-motion: reduce) {
+  .hero__visual,
+  .editor,
+  .about__image-frame,
+  .hero__social-btn,
+  .badge,
+  .badge__inner,
+  .btn--primary,
+  .btn--outline,
+  .skill-card,
+  .form__input,
+  .form__textarea {
+    transform: none !important;
+    animation: none !important;
+    transition:
+      box-shadow 0.3s ease,
+      border-color 0.3s ease,
+      background 0.3s ease !important;
+    perspective: none !important;
+  }
+
+  .navbar__link:hover {
+    letter-spacing: 0.04em;
+  }
+
+  .navbar__link::before {
+    display: none;
+  }
+
+  .editor__gloss,
+  .btn--primary::after,
+  .hero__social-btn::after {
+    display: none;
+  }
+}

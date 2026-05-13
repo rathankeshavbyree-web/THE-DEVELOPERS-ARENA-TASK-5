@@ -1,0 +1,489 @@
+/* ============================================================
+   layout.css — RATHAN KESHAV BYREE Portfolio
+   Mobile-first responsive layout — all breakpoints
+   ============================================================ */
+
+/* ============================================================
+   BASE (mobile-first, 320px+)
+   All sections are single-column by default
+   ============================================================ */
+
+/* ── Hero: single column, generous padding ── */
+.hero__container {
+  padding-block: var(--space-12);
+  gap: var(--space-10);
+}
+
+/* Hero name: fluid size so it never overflows on tiny screens */
+.hero__name-line {
+  font-size: clamp(2.2rem, 10vw, var(--fs-5xl));
+}
+
+/* Caption: slightly smaller on mobile */
+.hero__caption {
+  font-size: var(--fs-sm);
+  max-width: 100%;
+}
+
+/* Hero right: center the editor on mobile */
+.hero__right {
+  width: 100%;
+}
+
+/* Editor: full width on mobile, no badge overflow clipping */
+.editor {
+  width: 100%;
+  max-width: 100%;
+}
+
+/* Editor code: smaller font on tiny screens */
+.editor__code {
+  font-size: clamp(0.6rem, 2.5vw, 0.875rem);
+}
+
+/* ── Badges: hide all on very small screens to prevent overflow ── */
+.badges {
+  display: none;
+}
+
+/* ── About: single column ── */
+.about__grid {
+  grid-template-columns: 1fr;
+  gap: var(--space-8);
+}
+
+.about__image-wrap {
+  padding: clamp(1.2rem, 4vw, 2rem);
+}
+
+.about__image-frame {
+  width: clamp(160px, 50vw, 260px);
+  height: clamp(200px, 64vw, 340px);
+}
+
+.about__ring {
+  inset: 6px;
+}
+
+/* Stats: tighter gap on mobile */
+.about__stats {
+  gap: var(--space-5);
+}
+
+.about__stat-number {
+  font-size: var(--fs-2xl);
+}
+
+/* ── Skills: single column ── */
+.skills__grid {
+  grid-template-columns: 1fr;
+  gap: var(--space-5);
+}
+
+/* ── Contact: single column ── */
+.contact__grid {
+  grid-template-columns: 1fr;
+  gap: var(--space-8);
+}
+
+.contact__info {
+  order: 1;
+}
+
+.contact__form {
+  order: 2;
+}
+
+/* ── Footer: stacked ── */
+.footer__container {
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+/* ── Section header: tighter on mobile ── */
+.section-header {
+  margin-bottom: var(--space-10);
+}
+
+/* ============================================================
+   SMALL MOBILE  480px+
+   ============================================================ */
+@media (min-width: 480px) {
+  .hero__name-line {
+    font-size: clamp(2.6rem, 9vw, var(--fs-5xl));
+  }
+
+  .hero__caption {
+    font-size: var(--fs-base);
+  }
+
+  /* Show HTML and CSS badges only — they sit at corners, safe */
+  .badges {
+    display: block;
+  }
+
+  .hero__badge--git,
+  .hero__badge--js,
+  .hero__badge--react {
+    display: none;
+  }
+
+  /* Scale down pill on small mobile */
+  .badge__inner {
+    height: 26px;
+    min-width: 64px;
+    padding: 0 0.9rem;
+    font-size: 0.65rem;
+    letter-spacing: 0.06em;
+  }
+
+  /* Pull corner badges inward so they don't clip */
+  .hero__badge--html {
+    top: -20px;
+    left: -20px;
+  }
+
+  .hero__badge--css {
+    top: 20%;
+    right: -2%;
+  }
+}
+
+/* ============================================================
+   LARGE MOBILE  600px+
+   ============================================================ */
+@media (min-width: 600px) {
+  .hero__container {
+    padding-block: var(--space-16);
+  }
+
+  .about__image-frame {
+    width: clamp(200px, 52vw, 300px);
+    height: clamp(260px, 66vw, 380px);
+  }
+
+  .about__stats {
+    gap: var(--space-8);
+  }
+
+  .about__stat-number {
+    font-size: var(--fs-3xl);
+  }
+}
+
+/* ============================================================
+   TABLET  768px+
+   Two-column layouts activate
+   ============================================================ */
+@media (min-width: 768px) {
+
+  /* ── Hero: two columns ── */
+  .hero__container {
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-12);
+    padding-block: var(--space-16);
+  }
+
+  .hero__left  { order: 1; }
+  .hero__right { order: 2; padding-inline: 0; }
+
+  .hero__name-line {
+    font-size: clamp(2.8rem, 6vw, var(--fs-5xl));
+  }
+
+  .hero__caption {
+    font-size: var(--fs-md);
+    max-width: 480px;
+  }
+
+  /* Editor: fixed max-width on tablet */
+  .editor {
+    max-width: 460px;
+  }
+
+  /* Show all badges on tablet */
+  .badges {
+    display: block;
+  }
+
+  .hero__badge--git,
+  .hero__badge--js,
+  .hero__badge--react {
+    display: inline-flex;
+  }
+
+  /* Badge pill: tablet size */
+  .badge__inner {
+    height: 28px;
+    min-width: 72px;
+    padding: 0 1.2rem;
+    font-size: 0.7rem;
+    letter-spacing: 0.08em;
+  }
+
+  /* Badge positions: pull inward to stay within viewport */
+  .hero__badge--html  { top: -28px; left: -28px; }
+  .hero__badge--git   { top: -28px; right: -28px; }
+  .hero__badge--css   { top: 24%; right: -3%; }
+  .hero__badge--js    { top: 52%; left: -80px; }
+  .hero__badge--react { top: calc(52% + 42px); left: -80px; }
+
+  /* ── About: two columns ── */
+  .about__grid {
+    grid-template-columns: auto 1fr;
+    gap: var(--space-12);
+    align-items: center;
+  }
+
+  .about__image-wrap {
+    padding: clamp(1.5rem, 3vw, 2.5rem);
+  }
+
+  .about__image-frame {
+    width: clamp(220px, 28vw, 320px);
+    height: clamp(280px, 36vw, 420px);
+  }
+
+  /* ── Skills: two columns ── */
+  .skills__grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-6);
+  }
+
+  /* ── Contact: two columns ── */
+  .contact__grid {
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-10);
+    align-items: start;
+  }
+
+  .contact__info { order: unset; }
+  .contact__form { order: unset; }
+
+  /* ── Footer: row ── */
+  .footer__container {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  /* ── Navbar ── */
+  .navbar__container {
+    justify-content: space-between;
+  }
+
+  /* ── Section header ── */
+  .section-header {
+    margin-bottom: var(--space-12);
+  }
+}
+
+/* ============================================================
+   DESKTOP  1024px+
+   ============================================================ */
+@media (min-width: 1024px) {
+
+  .hero__container {
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-20);
+    padding-block: var(--space-20);
+  }
+
+  .hero__name-line {
+    font-size: var(--fs-5xl);
+  }
+
+  .hero__caption {
+    font-size: var(--fs-md);
+    max-width: 520px;
+  }
+
+  /* Editor: full desktop size */
+  .editor {
+    max-width: 520px;
+  }
+
+  /* Badge pill: full desktop size */
+  .badge__inner {
+    height: 32px;
+    min-width: 96px;
+    padding: 0 2rem;
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+  }
+
+  /* Badge positions: full offsets */
+  .hero__badge--html  { top: -40px; left: -40px; }
+  .hero__badge--git   { top: -40px; right: -40px; }
+  .hero__badge--css   { top: 24%; right: -4%; }
+  .hero__badge--js    { top: 52%; left: -110px; }
+  .hero__badge--react { top: calc(52% + 52px); left: -110px; }
+
+  /* ── Skills: three columns ── */
+  .skills__grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  /* ── About image: larger ── */
+  .about__image-frame {
+    width: clamp(260px, 26vw, 380px);
+    height: clamp(340px, 34vw, 480px);
+  }
+
+  .about__grid {
+    gap: var(--space-16);
+  }
+
+  /* ── Section header ── */
+  .section-header {
+    margin-bottom: var(--space-16);
+  }
+}
+
+/* ============================================================
+   LARGE DESKTOP  1280px+
+   ============================================================ */
+@media (min-width: 1280px) {
+
+  .hero__container {
+    gap: clamp(4rem, 8vw, 8rem);
+  }
+
+  .about__grid {
+    gap: var(--space-24);
+  }
+
+  .about__image-frame {
+    width: clamp(280px, 28vw, 400px);
+    height: clamp(360px, 36vw, 520px);
+  }
+
+  .editor {
+    max-width: 560px;
+  }
+}
+
+/* ============================================================
+   ULTRA-WIDE  1600px+
+   ============================================================ */
+@media (min-width: 1600px) {
+
+  :root {
+    --container-max: 1400px;
+    --section-pad:   clamp(5rem, 8vw, 9rem);
+  }
+
+  .hero__name-line {
+    font-size: clamp(5rem, 5.5vw, 7rem);
+  }
+
+  .editor {
+    max-width: 600px;
+  }
+
+  .badge__inner {
+    height: 34px;
+    min-width: 104px;
+    padding: 0 2.2rem;
+    font-size: 0.78rem;
+  }
+
+  .hero__badge--html  { top: -44px; left: -44px; }
+  .hero__badge--git   { top: -44px; right: -44px; }
+  .hero__badge--js    { left: -130px; }
+  .hero__badge--react { left: -130px; top: calc(52% + 56px); }
+}
+
+/* ============================================================
+   PRINT
+   ============================================================ */
+@media print {
+  .loader,
+  .navbar__hamburger,
+  .navbar__mobile,
+  .hero__socials,
+  .badges,
+  .contact__form,
+  .footer {
+    display: none !important;
+  }
+
+  body {
+    background: #fff;
+    color: #000;
+  }
+
+  .navbar {
+    position: static;
+    background: #fff;
+    border-bottom: 1px solid #ccc;
+  }
+
+  .hero {
+    min-height: auto;
+    padding-top: 1rem;
+  }
+
+  .hero__name-line {
+    color: #000;
+    text-shadow: none;
+  }
+
+  .hero__name-line--2 {
+    color: #cc0000;
+  }
+
+  .section-header__title {
+    color: #000;
+  }
+
+  .skill-card {
+    border: 1px solid #ccc;
+    break-inside: avoid;
+  }
+}
+
+/* ============================================================
+   REDUCED MOTION
+   ============================================================ */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .reveal {
+    opacity: 1;
+    transform: none;
+  }
+
+  .hero__greeting,
+  .hero__name-line,
+  .hero__caption,
+  .hero__socials,
+  .hero__right {
+    opacity: 1;
+    animation: none;
+  }
+}
+
+/* ============================================================
+   HIGH CONTRAST
+   ============================================================ */
+@media (forced-colors: active) {
+  .btn--primary {
+    border: 2px solid ButtonText;
+  }
+
+  .navbar__link--active::after {
+    background: Highlight;
+  }
+
+  .skill-card__fill {
+    background: Highlight;
+  }
+}

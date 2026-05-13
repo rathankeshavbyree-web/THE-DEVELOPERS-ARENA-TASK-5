@@ -1,0 +1,577 @@
+/* ============================================================
+   background.css — RATHAN KESHAV BYREE Portfolio
+   Global Animated Background Effects
+   Chunk 1: Canvas Base + Gradient Orbs
+   ============================================================ */
+
+/* ── Canvas: full-page fixed container ── */
+.bg-canvas {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;         /* behind ALL page content */
+  pointer-events: none;
+  overflow: hidden;
+  will-change: transform;
+  isolation: isolate;
+}
+
+/* All real content naturally stacks above z-index: -1 */
+
+/* ── Orbs container ── */
+.bg-orbs {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+/* ── Base orb ── */
+.bg-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0;          /* each orb sets its own opacity via animation */
+  will-change: transform, opacity;
+}
+
+/* Orb 1 — top-left, large warm red */
+.bg-orb--1 {
+  width: clamp(300px, 45vw, 700px);
+  height: clamp(300px, 45vw, 700px);
+  top: -10%;
+  left: -10%;
+  background: radial-gradient(
+    circle,
+    rgba(255, 45, 85, 0.18) 0%,
+    rgba(180, 20, 50, 0.08) 50%,
+    transparent 75%
+  );
+  animation: orbDrift1 22s ease-in-out infinite;
+}
+
+/* Orb 2 — top-right, medium crimson */
+.bg-orb--2 {
+  width: clamp(250px, 35vw, 550px);
+  height: clamp(250px, 35vw, 550px);
+  top: 5%;
+  right: -8%;
+  background: radial-gradient(
+    circle,
+    rgba(200, 20, 60, 0.14) 0%,
+    rgba(255, 45, 85, 0.06) 55%,
+    transparent 75%
+  );
+  animation: orbDrift2 28s ease-in-out infinite;
+}
+
+/* Orb 3 — center, subtle deep red */
+.bg-orb--3 {
+  width: clamp(200px, 30vw, 500px);
+  height: clamp(200px, 30vw, 500px);
+  top: 40%;
+  left: 35%;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(
+    circle,
+    rgba(255, 45, 85, 0.10) 0%,
+    rgba(150, 10, 40, 0.05) 60%,
+    transparent 80%
+  );
+  animation: orbDrift3 35s ease-in-out infinite;
+}
+
+/* Orb 4 — bottom-left, warm red */
+.bg-orb--4 {
+  width: clamp(280px, 40vw, 620px);
+  height: clamp(280px, 40vw, 620px);
+  bottom: -5%;
+  left: -5%;
+  background: radial-gradient(
+    circle,
+    rgba(255, 60, 90, 0.13) 0%,
+    rgba(180, 20, 50, 0.06) 55%,
+    transparent 75%
+  );
+  animation: orbDrift4 30s ease-in-out infinite;
+}
+
+/* Orb 5 — bottom-right, deep crimson */
+.bg-orb--5 {
+  width: clamp(220px, 32vw, 480px);
+  height: clamp(220px, 32vw, 480px);
+  bottom: 10%;
+  right: -5%;
+  background: radial-gradient(
+    circle,
+    rgba(200, 30, 70, 0.12) 0%,
+    rgba(255, 45, 85, 0.05) 60%,
+    transparent 80%
+  );
+  animation: orbDrift5 25s ease-in-out infinite;
+}
+
+/* ── Orb keyframes ── */
+@keyframes orbDrift1 {
+  0%   { opacity: 0.7; transform: translate(0, 0) scale(1); }
+  25%  { opacity: 1;   transform: translate(4%, 6%) scale(1.06); }
+  50%  { opacity: 0.8; transform: translate(8%, 2%) scale(0.96); }
+  75%  { opacity: 1;   transform: translate(3%, 8%) scale(1.04); }
+  100% { opacity: 0.7; transform: translate(0, 0) scale(1); }
+}
+
+@keyframes orbDrift2 {
+  0%   { opacity: 0.6; transform: translate(0, 0) scale(1); }
+  30%  { opacity: 0.9; transform: translate(-5%, 7%) scale(1.08); }
+  60%  { opacity: 0.7; transform: translate(-8%, 3%) scale(0.94); }
+  100% { opacity: 0.6; transform: translate(0, 0) scale(1); }
+}
+
+@keyframes orbDrift3 {
+  0%   { opacity: 0.5; transform: translate(-50%, -50%) scale(1); }
+  40%  { opacity: 0.8; transform: translate(-48%, -54%) scale(1.1); }
+  70%  { opacity: 0.6; transform: translate(-52%, -47%) scale(0.92); }
+  100% { opacity: 0.5; transform: translate(-50%, -50%) scale(1); }
+}
+
+@keyframes orbDrift4 {
+  0%   { opacity: 0.65; transform: translate(0, 0) scale(1); }
+  35%  { opacity: 0.9;  transform: translate(6%, -5%) scale(1.07); }
+  65%  { opacity: 0.7;  transform: translate(3%, -8%) scale(0.95); }
+  100% { opacity: 0.65; transform: translate(0, 0) scale(1); }
+}
+
+@keyframes orbDrift5 {
+  0%   { opacity: 0.6; transform: translate(0, 0) scale(1); }
+  45%  { opacity: 0.85; transform: translate(-6%, -6%) scale(1.09); }
+  100% { opacity: 0.6; transform: translate(0, 0) scale(1); }
+}
+
+/* ============================================================
+   background.css — Chunk 2: Technical Grid + Glowing Streaks
+   ============================================================ */
+
+/* ── Technical Grid ── */
+.bg-grid {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.028;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.6) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.6) 1px, transparent 1px);
+  background-size: 60px 60px;
+  /* Subtle slow drift */
+  animation: gridDrift 60s linear infinite;
+  will-change: background-position;
+}
+
+/* Fade the grid at edges so it doesn't look hard-clipped */
+.bg-grid::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 80% 60% at 50% 50%, transparent 40%, var(--bg-primary) 100%);
+  pointer-events: none;
+}
+
+@keyframes gridDrift {
+  from { background-position: 0 0, 0 0; }
+  to   { background-position: 60px 60px, 60px 60px; }
+}
+
+/* ── Streaks container ── */
+.bg-streaks {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+/* ── Base streak ── */
+.bg-streak {
+  position: absolute;
+  border-radius: 9999px;
+  will-change: transform, opacity;
+  pointer-events: none;
+}
+
+/* Streak 1 — long horizontal, upper third */
+.bg-streak--1 {
+  width: clamp(300px, 55vw, 800px);
+  height: 1px;
+  top: 18%;
+  left: -20%;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 45, 85, 0.35) 40%,
+    rgba(255, 45, 85, 0.55) 55%,
+    rgba(255, 45, 85, 0.35) 70%,
+    transparent 100%
+  );
+  filter: blur(1.5px);
+  box-shadow: 0 0 12px rgba(255, 45, 85, 0.25);
+  animation: streakSlide1 14s ease-in-out infinite;
+}
+
+/* Streak 2 — diagonal, mid-page */
+.bg-streak--2 {
+  width: clamp(200px, 40vw, 600px);
+  height: 1px;
+  top: 45%;
+  right: -15%;
+  transform: rotate(-12deg);
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(200, 20, 60, 0.25) 35%,
+    rgba(255, 45, 85, 0.45) 55%,
+    rgba(200, 20, 60, 0.25) 75%,
+    transparent 100%
+  );
+  filter: blur(1px);
+  box-shadow: 0 0 10px rgba(255, 45, 85, 0.2);
+  animation: streakSlide2 18s ease-in-out infinite;
+}
+
+/* Streak 3 — short horizontal, lower section */
+.bg-streak--3 {
+  width: clamp(150px, 30vw, 450px);
+  height: 1px;
+  bottom: 30%;
+  left: 10%;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 45, 85, 0.3) 45%,
+    rgba(255, 80, 110, 0.5) 55%,
+    rgba(255, 45, 85, 0.3) 65%,
+    transparent 100%
+  );
+  filter: blur(1px);
+  animation: streakSlide3 20s ease-in-out infinite;
+}
+
+/* Streak 4 — diagonal, bottom area */
+.bg-streak--4 {
+  width: clamp(180px, 35vw, 520px);
+  height: 1px;
+  bottom: 12%;
+  right: 5%;
+  transform: rotate(8deg);
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(180, 20, 50, 0.2) 40%,
+    rgba(255, 45, 85, 0.38) 55%,
+    rgba(180, 20, 50, 0.2) 70%,
+    transparent 100%
+  );
+  filter: blur(1.5px);
+  animation: streakSlide4 16s ease-in-out infinite;
+}
+
+/* ── Streak keyframes ── */
+@keyframes streakSlide1 {
+  0%   { opacity: 0;    transform: translateX(-8%); }
+  15%  { opacity: 1; }
+  50%  { opacity: 0.7;  transform: translateX(6%); }
+  85%  { opacity: 1; }
+  100% { opacity: 0;    transform: translateX(-8%); }
+}
+
+@keyframes streakSlide2 {
+  0%   { opacity: 0;    transform: rotate(-12deg) translateX(8%); }
+  20%  { opacity: 0.8; }
+  55%  { opacity: 0.5;  transform: rotate(-12deg) translateX(-6%); }
+  80%  { opacity: 0.8; }
+  100% { opacity: 0;    transform: rotate(-12deg) translateX(8%); }
+}
+
+@keyframes streakSlide3 {
+  0%   { opacity: 0;    transform: translateX(-5%); }
+  20%  { opacity: 0.9; }
+  60%  { opacity: 0.6;  transform: translateX(8%); }
+  80%  { opacity: 0.9; }
+  100% { opacity: 0;    transform: translateX(-5%); }
+}
+
+@keyframes streakSlide4 {
+  0%   { opacity: 0;    transform: rotate(8deg) translateX(5%); }
+  25%  { opacity: 0.7; }
+  50%  { opacity: 0.4;  transform: rotate(8deg) translateX(-7%); }
+  75%  { opacity: 0.7; }
+  100% { opacity: 0;    transform: rotate(8deg) translateX(5%); }
+}
+
+/* ============================================================
+   background.css — Chunk 3: Rotating Rings + Noise + Particles
+   ============================================================ */
+
+/* ── Rings container ── */
+.bg-rings {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+/* ── Base ring ── */
+.bg-ring {
+  position: absolute;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 45, 85, 0.07);
+  will-change: transform;
+  pointer-events: none;
+}
+
+/* Ring 1 — large, top-right quadrant */
+.bg-ring--1 {
+  width: clamp(400px, 65vw, 900px);
+  height: clamp(400px, 65vw, 900px);
+  top: -15%;
+  right: -20%;
+  border-color: rgba(255, 45, 85, 0.06);
+  box-shadow:
+    inset 0 0 40px rgba(255, 45, 85, 0.04),
+    0 0 40px rgba(255, 45, 85, 0.03);
+  animation: ringSpinCW 45s linear infinite;
+}
+
+/* Dot on ring 1 */
+.bg-ring--1::before {
+  content: '';
+  position: absolute;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: rgba(255, 45, 85, 0.5);
+  box-shadow: 0 0 10px rgba(255, 45, 85, 0.4);
+  top: 8%;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+/* Ring 2 — medium, center-left */
+.bg-ring--2 {
+  width: clamp(280px, 45vw, 650px);
+  height: clamp(280px, 45vw, 650px);
+  top: 30%;
+  left: -12%;
+  border-color: rgba(255, 45, 85, 0.05);
+  box-shadow:
+    inset 0 0 30px rgba(255, 45, 85, 0.03),
+    0 0 30px rgba(255, 45, 85, 0.02);
+  animation: ringSpinCCW 60s linear infinite;
+}
+
+.bg-ring--2::before {
+  content: '';
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: rgba(255, 45, 85, 0.4);
+  box-shadow: 0 0 8px rgba(255, 45, 85, 0.35);
+  bottom: 10%;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+/* Ring 3 — small, bottom-right */
+.bg-ring--3 {
+  width: clamp(200px, 30vw, 420px);
+  height: clamp(200px, 30vw, 420px);
+  bottom: 5%;
+  right: 5%;
+  border-color: rgba(255, 45, 85, 0.06);
+  box-shadow:
+    inset 0 0 20px rgba(255, 45, 85, 0.03),
+    0 0 20px rgba(255, 45, 85, 0.025);
+  animation: ringSpinCW 35s linear infinite reverse;
+}
+
+.bg-ring--3::before {
+  content: '';
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: rgba(255, 45, 85, 0.45);
+  box-shadow: 0 0 8px rgba(255, 45, 85, 0.3);
+  top: 50%;
+  right: -2px;
+  transform: translateY(-50%);
+}
+
+/* ── Ring keyframes ── */
+@keyframes ringSpinCW {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+@keyframes ringSpinCCW {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(-360deg); }
+}
+
+/* ── Noise Texture ── */
+.bg-noise {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.028;
+  /* SVG-based grain — no external image needed */
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 180px 180px;
+  mix-blend-mode: overlay;
+}
+
+/* ── Particles container ── */
+.bg-particles {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+/* ── Static CSS particle fallback (shown if JS is disabled) ── */
+/* JS will generate real particles; these are a minimal fallback */
+.bg-particle {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  will-change: transform, opacity;
+}
+
+/* ── Particle animation variants ── */
+@keyframes particleRise {
+  0% {
+    transform: translateY(0) translateX(0) scale(1);
+    opacity: 0;
+  }
+  10% { opacity: 1; }
+  90% { opacity: 0.6; }
+  100% {
+    transform: translateY(-100vh) translateX(var(--drift-x, 20px)) scale(0.5);
+    opacity: 0;
+  }
+}
+
+@keyframes particleDrift {
+  0% {
+    transform: translate(0, 0) scale(1);
+    opacity: 0;
+  }
+  15% { opacity: 0.8; }
+  85% { opacity: 0.4; }
+  100% {
+    transform: translate(var(--drift-x, 30px), var(--drift-y, -80px)) scale(0.6);
+    opacity: 0;
+  }
+}
+
+/* ============================================================
+   background.css — Chunk 4: Responsive + Reduced Motion
+   ============================================================ */
+
+/* ── Tablet: tone down slightly ── */
+@media (max-width: 1024px) {
+  .bg-orb {
+    filter: blur(70px);
+  }
+
+  .bg-orb--1 { opacity-multiplier: 0.8; } /* handled via animation opacity */
+  .bg-orb--3 { display: none; }           /* remove center orb on tablet */
+
+  .bg-ring--1 {
+    width: clamp(300px, 55vw, 650px);
+    height: clamp(300px, 55vw, 650px);
+  }
+
+  .bg-ring--2 {
+    display: none;
+  }
+}
+
+/* ── Mobile: minimal effects for performance ── */
+@media (max-width: 767px) {
+  /* Keep only 2 orbs */
+  .bg-orb--2,
+  .bg-orb--3,
+  .bg-orb--5 {
+    display: none;
+  }
+
+  .bg-orb {
+    filter: blur(60px);
+  }
+
+  /* Reduce grid opacity further */
+  .bg-grid {
+    opacity: 0.018;
+  }
+
+  /* Hide rings on mobile */
+  .bg-ring--2,
+  .bg-ring--3 {
+    display: none;
+  }
+
+  .bg-ring--1 {
+    width: 280px;
+    height: 280px;
+    top: -5%;
+    right: -10%;
+  }
+
+  /* Fewer streaks */
+  .bg-streak--2,
+  .bg-streak--4 {
+    display: none;
+  }
+
+  /* Noise stays — it's cheap */
+}
+
+/* ── Small mobile ── */
+@media (max-width: 480px) {
+  .bg-orb--4 {
+    display: none;
+  }
+
+  .bg-ring--1 {
+    display: none;
+  }
+
+  .bg-streak--3 {
+    display: none;
+  }
+}
+
+/* ── Reduced Motion: disable all background animations ── */
+@media (prefers-reduced-motion: reduce) {
+  .bg-orb,
+  .bg-grid,
+  .bg-streak,
+  .bg-ring,
+  .bg-particle {
+    animation: none !important;
+    transition: none !important;
+  }
+
+  /* Keep static orbs visible but frozen */
+  .bg-orb--1 { opacity: 0.5; }
+  .bg-orb--2 { opacity: 0.4; }
+  .bg-orb--4 { opacity: 0.4; }
+
+  /* Hide animated elements that make no sense frozen */
+  .bg-streaks,
+  .bg-rings,
+  .bg-particles {
+    display: none;
+  }
+}

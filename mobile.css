@@ -1,0 +1,678 @@
+/* ============================================================
+   mobile.css — RATHAN KESHAV BYREE Portfolio
+   Premium mobile experience — all phone sizes
+   Preserves every visual feature from desktop.
+   Desktop layout is completely untouched.
+   ============================================================ */
+
+/* ============================================================
+   GLOBAL — prevent horizontal overflow on all phones
+   ============================================================ */
+@media (max-width: 767px) {
+
+  html {
+    overflow-x: hidden;
+  }
+
+  body {
+    overflow-x: hidden;
+    /* Prevent pull-to-refresh interfering with animations */
+    overscroll-behavior-y: contain;
+  }
+
+  /* Safe padding on all containers */
+  .hero__container,
+  .about__container,
+  .skills__container,
+  .contact__container,
+  .footer__container {
+    padding-inline: clamp(1rem, 5vw, 1.5rem);
+    width: 100%;
+    max-width: 100%;
+  }
+
+  /* Section vertical padding */
+  .about,
+  .skills,
+  .contact {
+    padding-block: clamp(3rem, 8vw, 5rem);
+  }
+
+  /* Section headers */
+  .section-header {
+    margin-bottom: clamp(2rem, 6vw, 3rem);
+  }
+
+  .section-header__title {
+    font-size: clamp(1.6rem, 6vw, 2.2rem);
+  }
+}
+
+/* ============================================================
+   LOADER — optimized for mobile performance
+   ============================================================ */
+@media (max-width: 767px) {
+
+  /* Scale down the stage so it fits small screens */
+  .loader__stage {
+    width: 120px;
+    height: 120px;
+  }
+
+  /* Scale rings proportionally */
+  .loader__ring--1 { width: 44px;  height: 44px; }
+  .loader__ring--2 { width: 66px;  height: 66px; }
+  .loader__ring--3 { width: 90px;  height: 90px; }
+  .loader__ring--4 { width: 116px; height: 116px; }
+
+  /* Smaller orbit */
+  .loader__orbit {
+    width: 74px;
+    height: 74px;
+  }
+
+  /* Smaller core — still glows */
+  .loader__core {
+    width: 12px;
+    height: 12px;
+  }
+
+  /* Reduce progress bar width */
+  .loader__progress-bar {
+    width: 160px;
+  }
+
+  /* Smaller status text */
+  .loader__status {
+    font-size: 0.65rem;
+    letter-spacing: 0.08em;
+  }
+
+  /* Reduce heavy box-shadow on loader core for GPU relief */
+  .loader__core {
+    box-shadow:
+      0 0 8px var(--red-primary),
+      0 0 18px var(--red-glow),
+      0 0 32px var(--red-glow-soft);
+  }
+}
+
+/* ============================================================
+   NAVBAR MOBILE
+   ============================================================ */
+@media (max-width: 767px) {
+
+  .navbar__container {
+    padding-inline: clamp(1rem, 5vw, 1.5rem);
+  }
+
+  .navbar__logo-text {
+    font-size: 1.2rem;
+  }
+
+  /* Ensure hamburger is always visible */
+  .navbar__hamburger {
+    display: flex;
+  }
+
+  .navbar__nav {
+    display: none;
+  }
+}
+
+/* ============================================================
+   HERO SECTION MOBILE
+   ============================================================ */
+@media (max-width: 767px) {
+
+  /* Hero section: allow content to breathe */
+  .hero {
+    overflow: hidden;
+    min-height: 100svh; /* safe viewport height on mobile */
+  }
+
+  .hero__container {
+    grid-template-columns: 1fr;
+    gap: clamp(2.5rem, 7vw, 3.5rem);
+    padding-block: clamp(2rem, 7vw, 3rem);
+    align-items: start;
+  }
+
+  /* Text above, editor below */
+  .hero__left  { order: 1; }
+  .hero__right { order: 2; }
+
+  /* ── Hero text ── */
+  .hero__name-line {
+    font-size: clamp(2.2rem, 11vw, 3.2rem);
+    letter-spacing: -0.01em;
+  }
+
+  .hero__greeting {
+    font-size: 0.875rem;
+  }
+
+  .hero__caption {
+    font-size: 0.875rem;
+    line-height: 1.75;
+    max-width: 100%;
+  }
+
+  /* Social icons */
+  .hero__socials {
+    gap: 0.75rem;
+    flex-wrap: wrap;
+  }
+
+  .hero__social-btn {
+    width: 44px;
+    height: 44px;
+    font-size: 1rem;
+  }
+
+  /* ── Hero right: the visual column ── */
+  .hero__right {
+    perspective: none !important;
+    overflow: visible;   /* badges must not be clipped */
+    width: 100%;
+    padding-inline: 0;
+    /* Extra top/bottom space for badges that sit outside the card */
+    padding-block: 44px;
+  }
+
+  /* ── Hero visual wrapper ── */
+  .hero__visual {
+    transform: none !important;
+    transition: none !important;
+    transform-style: flat !important;
+    overflow: visible;   /* badges overflow the card — must be visible */
+    width: 100%;
+    position: relative;
+  }
+
+  /* ── Editor card ── */
+  .editor {
+    width: 100%;
+    max-width: 100%;
+    transform: none !important;
+    transform-style: flat !important;
+  }
+
+  /* Kill translateZ on parallax layers — causes overflow on mobile WebKit */
+  .editor__header {
+    transform: none !important;
+    padding: 0.65rem 1rem;
+  }
+
+  .editor__body {
+    transform: none !important;
+    padding: 1rem 1rem;
+  }
+
+  .editor__code {
+    font-size: clamp(0.6rem, 2.4vw, 0.78rem);
+    line-height: 1.75;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    white-space: pre;
+  }
+
+  /* Gloss not needed without 3D */
+  .editor__gloss {
+    display: none;
+  }
+
+  /* ── Floating badges: repositioned INSIDE card bounds ── */
+  /* The badges container sits over the card — overflow: visible on
+     hero__visual lets them peek outside the card edges safely.
+     We reposition all badges to hug the card corners/edges
+     so they stay within the viewport on any phone width.         */
+
+  .badges {
+    display: block !important;  /* always show on mobile */
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 20;
+    overflow: visible;
+  }
+
+  /* Badge pill: compact mobile size */
+  .badge__inner {
+    height: 24px !important;
+    min-width: 52px !important;
+    padding: 0 0.75rem !important;
+    font-size: 0.6rem !important;
+    letter-spacing: 0.06em !important;
+    /* Keep backdrop blur — it's GPU-accelerated */
+    backdrop-filter: blur(12px) !important;
+    -webkit-backdrop-filter: blur(12px) !important;
+  }
+
+  /* HTML — top-left, just outside card corner */
+  .hero__badge--html {
+    top: -22px;
+    left: 8px;
+    right: auto;
+    bottom: auto;
+    animation: floatBadge1 4.4s ease-in-out infinite;
+  }
+
+  /* Git — top-right, just outside card corner */
+  .hero__badge--git {
+    top: -22px;
+    right: 8px;
+    left: auto;
+    bottom: auto;
+    animation: floatBadge3 4.2s ease-in-out 0.4s infinite;
+  }
+
+  /* CSS — right edge, upper-mid */
+  .hero__badge--css {
+    top: 22%;
+    right: -8px;
+    left: auto;
+    bottom: auto;
+    animation: floatBadge2 5.2s ease-in-out 0.8s infinite;
+  }
+
+  /* JS — left edge, vertically centered */
+  .hero__badge--js {
+    top: 50%;
+    left: -8px;
+    right: auto;
+    bottom: auto;
+    transform: translateY(-50%);
+    animation: floatBadge2 5s ease-in-out 1s infinite;
+  }
+
+  /* JS hover: preserve translateY base */
+  .hero__badge--js:hover {
+    transform: translateY(calc(-50% - 4px)) scale(1.05) !important;
+  }
+
+  /* React — left edge, below JS */
+  .hero__badge--react {
+    top: calc(50% + 36px);
+    left: -8px;
+    right: auto;
+    bottom: auto;
+    animation: floatBadge1 6s ease-in-out 0.2s infinite reverse;
+  }
+}
+
+/* ============================================================
+   ABOUT SECTION MOBILE
+   ============================================================ */
+@media (max-width: 767px) {
+
+  .about__grid {
+    grid-template-columns: 1fr;
+    gap: clamp(2rem, 6vw, 3rem);
+    justify-items: center;
+  }
+
+  /* Image wrap */
+  .about__image-wrap {
+    padding: clamp(1.2rem, 4vw, 2rem);
+    width: 100%;
+    max-width: 300px;
+    margin-inline: auto;
+    /* Keep floating animation — it's GPU-accelerated (transform only) */
+    animation: profileFloat 6s ease-in-out infinite;
+  }
+
+  /* Image frame */
+  .about__image-frame {
+    width: clamp(170px, 52vw, 250px);
+    height: clamp(215px, 66vw, 320px);
+    transform: none !important;
+    transition: box-shadow 0.3s ease !important;
+    transform-style: flat !important;
+  }
+
+  /* Ring: keep rotating — cheap GPU animation */
+  .about__ring {
+    inset: 5px;
+    animation: ringRotate 22s linear infinite;
+  }
+
+  /* Halo: lighter blur for performance */
+  .about__halo {
+    filter: blur(14px);
+  }
+
+  /* Content */
+  .about__content {
+    width: 100%;
+    gap: 1rem;
+  }
+
+  .about__subtitle {
+    font-size: 0.72rem;
+  }
+
+  .about__text {
+    font-size: 0.875rem;
+    line-height: 1.75;
+  }
+
+  /* Stats: 3-column grid */
+  .about__stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.75rem;
+    padding-block: 1rem;
+  }
+
+  .about__stat {
+    align-items: center;
+    text-align: center;
+  }
+
+  .about__stat-number {
+    font-size: 1.6rem;
+  }
+
+  .about__stat-suffix {
+    font-size: 1rem;
+  }
+
+  .about__stat-label {
+    font-size: 0.58rem;
+  }
+
+  /* CTA button */
+  .about__content .btn {
+    width: 100%;
+    justify-content: center;
+    min-height: 48px;
+  }
+}
+
+/* ============================================================
+   SKILLS SECTION MOBILE
+   ============================================================ */
+@media (max-width: 767px) {
+
+  .skills__grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .skill-card {
+    padding: 1.25rem;
+    transform: none !important;
+  }
+
+  .skill-card:hover {
+    transform: none !important;
+  }
+
+  .skill-card__icon {
+    width: 40px;
+    height: 40px;
+    font-size: 1rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .skill-card__title {
+    font-size: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  .skill-card__name {
+    font-size: 0.8rem;
+  }
+}
+
+/* ============================================================
+   CONTACT SECTION MOBILE
+   ============================================================ */
+@media (max-width: 767px) {
+
+  .contact__grid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .contact__info { order: 1; }
+  .contact__form { order: 2; }
+
+  .contact__info-title {
+    font-size: 1.1rem;
+  }
+
+  .contact__info-text {
+    font-size: 0.875rem;
+  }
+
+  .contact__detail-link {
+    font-size: 0.8rem;
+    word-break: break-word;
+  }
+
+  /* font-size: 1rem prevents iOS auto-zoom on input focus */
+  .form__input,
+  .form__textarea {
+    padding: 0.875rem 1rem;
+    font-size: 1rem;
+    transform: none !important;
+  }
+
+  .form__label {
+    font-size: 0.8rem;
+  }
+
+  .form__textarea {
+    min-height: 100px;
+  }
+
+  .contact__form .btn {
+    width: 100%;
+    min-height: 48px;
+    font-size: 0.875rem;
+  }
+}
+
+/* ============================================================
+   FOOTER MOBILE
+   ============================================================ */
+@media (max-width: 767px) {
+
+  .footer {
+    padding-block: 1.5rem;
+  }
+
+  .footer__container {
+    flex-direction: column;
+    align-items: center;
+    gap: 0.25rem;
+    text-align: center;
+  }
+
+  .footer__text,
+  .footer__copy {
+    font-size: 0.75rem;
+  }
+}
+
+/* ============================================================
+   BACKGROUND EFFECTS — keep but lighten on mobile
+   ============================================================ */
+@media (max-width: 767px) {
+
+  /* Reduce orb blur for GPU relief */
+  .bg-orb {
+    filter: blur(55px) !important;
+  }
+
+  /* Grid: even fainter on mobile */
+  .bg-grid {
+    opacity: 0.015 !important;
+  }
+
+  /* Rings: keep largest only */
+  .bg-ring--2,
+  .bg-ring--3 {
+    display: none;
+  }
+
+  /* Streaks: keep 2 */
+  .bg-streak--2,
+  .bg-streak--4 {
+    display: none;
+  }
+}
+
+/* ============================================================
+   3D EFFECTS — disable on mobile
+   ============================================================ */
+@media (max-width: 767px) {
+
+  /* Kill all 3D on hero visual */
+  .hero__visual {
+    transform: none !important;
+    transition: none !important;
+    perspective: none !important;
+    transform-style: flat !important;
+  }
+
+  .hero__right {
+    perspective: none !important;
+  }
+
+  /* Kill translateZ on parallax layers */
+  .editor__header,
+  .editor__body {
+    transform: none !important;
+    transition: none !important;
+  }
+
+  .editor {
+    transform: none !important;
+    transform-style: flat !important;
+  }
+
+  /* About image: no 3D */
+  .about__image-frame {
+    transform: none !important;
+    transition: box-shadow 0.3s ease !important;
+    transform-style: flat !important;
+  }
+
+  /* Social buttons: simple scale only */
+  .hero__social-btn:hover {
+    transform: scale(1.05) !important;
+  }
+
+  /* Nav link: no letter-spacing animation */
+  .navbar__link:hover {
+    letter-spacing: 0.04em !important;
+  }
+
+  .navbar__link::before {
+    display: none;
+  }
+
+  /* Buttons: no 3D tilt */
+  .btn--primary:hover,
+  .btn--outline:hover {
+    transform: translateY(-2px) !important;
+  }
+}
+
+/* ============================================================
+   TINY PHONES  ≤ 380px
+   ============================================================ */
+@media (max-width: 380px) {
+
+  .hero__name-line {
+    font-size: clamp(1.8rem, 12vw, 2.4rem);
+  }
+
+  .hero__caption {
+    font-size: 0.8rem;
+  }
+
+  .hero__social-btn {
+    width: 40px;
+    height: 40px;
+    font-size: 0.9rem;
+  }
+
+  .about__image-frame {
+    width: clamp(145px, 58vw, 210px);
+    height: clamp(185px, 74vw, 270px);
+  }
+
+  .about__stat-number {
+    font-size: 1.3rem;
+  }
+
+  .about__stat-label {
+    font-size: 0.52rem;
+  }
+
+  .skill-card {
+    padding: 1rem;
+  }
+
+  .section-header__title {
+    font-size: clamp(1.3rem, 7vw, 1.7rem);
+  }
+
+  /* Badges even smaller on tiny phones */
+  .badge__inner {
+    height: 20px !important;
+    min-width: 44px !important;
+    padding: 0 0.55rem !important;
+    font-size: 0.55rem !important;
+  }
+}
+
+/* ============================================================
+   LANDSCAPE PHONES
+   ============================================================ */
+@media (max-width: 767px) and (orientation: landscape) {
+
+  .hero {
+    min-height: auto;
+  }
+
+  .hero__container {
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    padding-block: 1rem;
+    align-items: center;
+  }
+
+  .hero__name-line {
+    font-size: clamp(1.4rem, 4vw, 2rem);
+  }
+
+  .hero__caption {
+    font-size: 0.78rem;
+    /* Limit to 3 lines in landscape */
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .hero__right {
+    overflow: visible;
+  }
+
+  .editor__code {
+    font-size: 0.58rem;
+    line-height: 1.55;
+  }
+
+  /* Badges: tighter in landscape */
+  .hero__badge--html { top: -18px; left: 6px; }
+  .hero__badge--git  { top: -18px; right: 6px; }
+  .hero__badge--css  { top: 18%; right: -6px; }
+  .hero__badge--js   { top: 50%; left: -6px; }
+  .hero__badge--react { top: calc(50% + 30px); left: -6px; }
+}
